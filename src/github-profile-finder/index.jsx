@@ -7,8 +7,8 @@ export default function GithubProfileFinder() {
 async function fetchGithHubUserData() {
     const res = await fetch(`https://api.github.com/users/${userName}`)
 
-    const data = res.json();
-    console.log(data);
+    const data = res.json()
+    console.log(data)
     
 }
 
