@@ -2,26 +2,31 @@ import { useState, useEffect } from "react";
 
 export default function GithubProfileFinder() {
   const [userName, setUserName] = useState("zarkonow");
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
+  async function fetchGithHubUserData() {
+    setLoading(true);
+    const res = await fetch(`https://api.github.com/users/${userName}`);
 
-async function fetchGithHubUserData() {
-    const res = await fetch(`https://api.github.com/users/${userName}`)
+    const data = res.json();
 
-    const data = res.json()
-    console.log(data)
-    
-}
-
-
-  function handleSubmit() {
-
+    if (data) {
+      setUserData(data);
+      setLoading(false);
+    }
+    console.log(data);
   }
 
+  function handleSubmit() {}
 
   useEffect(() => {
-   fetchGithHubUserData()
-  }, [])
-  
+    fetchGithHubUserData();
+  }, []);
+
+  if (loading) {
+    return <h1>Loading data ! Please wait</h1>;
+  }
 
   return (
     <div className="github-profile-container">
